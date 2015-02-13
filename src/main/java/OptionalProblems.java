@@ -1,8 +1,5 @@
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -69,49 +66,98 @@ final class OptionalProblems {
     // ----- TASKS BELOW -----
 
     public Optional<Integer> createOptionalOfNullable(final Integer nullableValue) {
-        return null;
+        return Optional.ofNullable(nullableValue);
     }
 
     public Optional<Integer> createOptionalOfNonNullable(final Integer nonNullableValue) {
-        return null;
+        return Optional.of(nonNullableValue);
     }
 
     public Optional<Integer> createEmptyOptional() {
-        return null;
+        return Optional.empty();
     }
 
     public String returnValueWithinOptionalOrDefaultValue(final Optional<String> optional, final String defaultValue) {
-        return null;
+        return optional.orElse(defaultValue);
     }
 
     public String returnValueWithinOptionalOrFetchDefaultValue(final Optional<String> optional,
                                                                final Supplier<String> defaultValueSupplier) {
-        return null;
+        return optional.orElseGet(defaultValueSupplier);
     }
 
     /*
      * Use someService#getDefaultValue() as a Supplier<String> for the default value
      */
     public String returnValueWithinOptionalOrUseDefaultValueMethod(final Optional<String> optional) {
-        return null;
+//        // 1st possibility
+//        return optional.orElseGet(new Supplier<String>() {
+//            @Override
+//            public String get() {
+//                return someService.getDefaultValue();
+//            }
+//        });
+//
+//        // 2nd possibility
+//        return optional.orElseGet(() -> someService.getDefaultValue());
+
+        // 3rd possibility
+        return optional.orElseGet(someService::getDefaultValue);
     }
 
     public String returnValueWithinOptionalOrThrowRuntimeException(final Optional<String> optional) {
-        return null;
+//        // 1st possibility
+//        return optional.orElseThrow(new Supplier<RuntimeException>() {
+//            @Override
+//            public RuntimeException get() {
+//                return new RuntimeException();
+//            }
+//        });
+//
+//        // 2nd possibility
+//        return optional.orElseThrow(() -> new RuntimeException());
+
+        // 3rd possibility
+        return optional.orElseThrow(RuntimeException::new);
     }
 
     /*
      * Hint: when you want to transform a value inside an Optional, use Optional#map(Function)
      */
     public Optional<String> turnOptionalIntegerIntoOptionalString(final Optional<Integer> optionalInteger) {
-        return null;
+//        // 1st possibility
+//        return optionalInteger.map(new Function<Integer, String>() {
+//            @Override
+//            public String apply(final Integer value) {
+//                return value.toString();
+//            }
+//        });
+//
+//        // 2nd possibility
+//        return optionalInteger.map(value -> value.toString());
+
+        // 3rd possibility
+        return optionalInteger.map(Object::toString);
     }
 
     /*
      * Hint: combine Optional#map(Function) and Optional#orElse(T)
      */
     public String turnIntegerIntoStringOrEmptyString(final Optional<Integer> integer) {
-        return null;
+//        // 1st possibility
+//        return integer.map(new Function<Integer, String>() {
+//            @Override
+//            public String apply(final Integer value) {
+//                return value.toString();
+//            }
+//        })
+//                      .orElse("");
+//
+//        // 2nd possibility
+//        return integer.map(value -> value.toString()).orElse("");
+
+        // 3rd possibility
+        return integer.map(Object::toString).orElse("");
     }
 
     /*
@@ -120,7 +166,19 @@ final class OptionalProblems {
      * Hint: to flatten and map at the same time, use Optional#flatMap(Function)
      */
     public Optional<Integer> tryMakeAnIntegerOutOfAnOptionalString(final Optional<String> optionalValue) {
-        return null;
+//        // 1st possibility
+//        return optionalValue.flatMap(new Function<String, Optional<Integer>>() {
+//            @Override
+//            public Optional<Integer> apply(final String value) {
+//                return someService.tryMakeAnInteger(value);
+//            }
+//        });
+//
+//        // 2nd possibility
+//        return optionalValue.flatMap(value -> someService.tryMakeAnInteger(value));
+
+        // 3rd possibility
+        return optionalValue.flatMap(someService::tryMakeAnInteger);
     }
 
     /*
@@ -132,7 +190,17 @@ final class OptionalProblems {
      * @return an Optional that will be empty if the String was null or an empty String
      */
     public Optional<String> keepNonEmptyNullableString(final String value) {
-        return null;
+        // 1st possibility
+//        return Optional.ofNullable(value)
+//                       .filter(new Predicate<String>() {
+//                           @Override
+//                           public boolean test(final String str) {
+//                               return !str.trim().isEmpty();
+//                           }
+//                       });
+
+        // 2nd possibility
+        return Optional.ofNullable(value).filter(str -> !str.trim().isEmpty());
     }
 
     /*
@@ -141,7 +209,19 @@ final class OptionalProblems {
      * Hint: side-effects can be executed through Optional#ifPresent(Consumer)
      */
     public void executeSideEffectWhenValueIsPresent(Optional<String> optional) {
-        ;
+//        // 1st possibility
+//        optional.ifPresent(new Consumer<String>() {
+//            @Override
+//            public void accept(final String value) {
+//                someService.printOut(value);
+//            }
+//        });
+//
+//        // 2nd possibility
+//        optional.ifPresent(value -> someService.printOut(value));
+
+        // 3rd possibility
+        optional.ifPresent(someService::printOut);
     }
 
     /*
@@ -151,7 +231,18 @@ final class OptionalProblems {
      *       turns each Optional in the list into a Stream of one or an empty Stream (Optional#map(Function))
      */
     public List<Integer> retainAllIntegers(List<Optional<Integer>> list) {
-        return null;
+        //alternative 1
+//        return list.stream().filter(Optional::isPresent).map(Optional::get).collect(toList());
+
+        //alternative 2
+//        return list.stream().flatMap(opt -> opt.map(Stream::of).orElseGet(Stream::empty)).collect(toList());
+
+        //alternative 3
+        return list.stream().flatMap(OptionalProblems::stream).collect(toList());
+    }
+
+    private static <T> Stream<T> stream(final Optional<T> optional) {
+        return optional.map(Stream::of).orElseGet(Stream::empty);
     }
 
     /*
@@ -180,8 +271,13 @@ final class OptionalProblems {
 //            }
 //        }
 //        return balance;
-        
-        return null;
+
+        return Optional.ofNullable(customerId)
+                       .map(database::getCustomer)
+                       .map(Customer::getAccountNumber)
+                       .map(accountService::getAccount)
+                       .map(Account::getBalance)
+                       .orElse(0.0);
     }
 
     /*
@@ -196,7 +292,12 @@ final class OptionalProblems {
      * @return first customer account number starting with "NO" or an empty String
      */
     public String getFirstCustomerAccountNumberStartingWithNO(final List<Customer> customers) {
-        return null;
+        return customers.stream()
+                        .filter(customer -> customer.getAccountNumber().startsWith("NO"))
+                        .findFirst()
+                        .map(customer -> customer.getAccountNumber())
+                        .orElse("");
     }
+
 
 }

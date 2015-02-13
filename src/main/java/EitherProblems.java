@@ -65,7 +65,10 @@ public class EitherProblems {
      * (Remember: An Either is one of two things, not both things at the same time.)
      */
     public Either<String, Integer> wtf() {
-        return null;
+        //alternative 1
+        return Either.right(4);
+        //alternative 2
+        //return Either.left("this method doesnt look production ready :(");
     }
 
     /*
@@ -76,7 +79,7 @@ public class EitherProblems {
      * The fold-method takes to lambdas, one for left and one for right
      */
     public String extractValueFrom(Either<Exception, String> either) {
-        return null;
+        return either.fold(left -> defaultValue(), Function.identity());
     }
 
     public static String defaultValue() {
@@ -89,7 +92,7 @@ public class EitherProblems {
      *
      */
     public Integer multiplyByTwo(Either<Exception, Integer> either) {
-        return null;
+        return either.fold(left -> defaultIntValue(), i -> i * 2);
     }
 
     public static Integer defaultIntValue() {
@@ -101,7 +104,7 @@ public class EitherProblems {
      * Use database#getCustomer(id)
      */
     public String getAccountNumber(final Integer customerId) {
-        return null;
+        return database.getCustomer(customerId).fold(failure -> "", Customer::getAccountNumber);
     }
 
     /*
@@ -109,7 +112,11 @@ public class EitherProblems {
      * Use database#getCustomer(id) and accountService#getAccount(accountNumber)
      */
     public Double getBalance(final Integer customerId) {
-        return null;
+        return database.getCustomer(customerId)
+                       .right().map(Customer::getAccountNumber)
+                       .joinRight(accountService::getAccount)
+                       .fold(failure -> Double.valueOf("0.0"),
+                             Account::getBalance);
     }
 
 }

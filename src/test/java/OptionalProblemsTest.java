@@ -296,9 +296,7 @@ public final class OptionalProblemsTest {
     }
 
     public Object[][] parametersForGetFirstCustomerAccountNumberStartingWithNO() {
-        return new Object[][]{{Collections.emptyList(), ""},
-                {Arrays.asList("FR123456", "NO123456", "NO098765"), "NO123456"},
-                {Arrays.asList("FR123456", null, "NO123456", "NO098765"), "NO123456"}};
+        return new Object[][]{{Collections.emptyList(), ""}, {Arrays.asList("FR123456", "NO123456", "NO098765"), "NO123456"}};
     }
 
 }

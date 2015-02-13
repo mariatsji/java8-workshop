@@ -13,14 +13,14 @@ public class IntroProblems {
      * Should create and return a stream from a List
      */
     public Stream<Integer> createStream(List<Integer> ints) {
-        return null;
+        return ints.stream();
     }
 
     /*
      * Should create and return a stream from an array
      */
     public Stream<Integer> createStream(Integer[] ints) {
-        return null;
+        return Stream.of(ints);
     }
 
     /*
@@ -28,7 +28,7 @@ public class IntroProblems {
      * This is a higher order function (because this function accepts a function as a parameter)
      */
     public <T> String apply(T theThing, Function<T, String> theFunction) {
-        return null;
+        return theFunction.apply(theThing);
     }
 
     /*
@@ -37,7 +37,7 @@ public class IntroProblems {
      * Hint: a lambda can be used
      */
     public Function<Integer, Integer> doublingFunction() {
-        return null;
+        return i -> i * 2;
     }
 
     /*
@@ -46,21 +46,21 @@ public class IntroProblems {
      * Hint: method reference can be used - point to the triplingFunction below
      */
     public Function<Integer, Integer> triplingFunctionSupplier() {
-        return null;
+        return this::triplingFunction;
     }
 
     /*
      * The awesomeness of this method warrants reuse through a method reference..
      */
     private Integer triplingFunction(Integer i) {
-        return null;
+        return i * 3;
     }
 
     /*
      * Should double all the ints. Create a stream from the list, and then use map, and then collect it back in a list
      */
     public List<Integer> doubleAllTheInts(List<Integer> ints) {
-        return null;
+        return ints.stream().map(doublingFunction()).collect(toList());
     }
 
     /*
@@ -68,7 +68,7 @@ public class IntroProblems {
     * (Hint java.io.File(String path) creates a File from a path)
     */
     public Stream<File> fileFromPath(Stream<String> paths) {
-        return null;
+        return paths.map(File::new);
     }
 
     /*
@@ -76,7 +76,7 @@ public class IntroProblems {
      * before collecting the result back in to a list
      */
     public List<String> upperCasifyAllStrings(List<String> strings) {
-        return null;
+        return strings.stream().map(String::toUpperCase).collect(toList());
     }
 
     /*
@@ -84,7 +84,7 @@ public class IntroProblems {
      * You can use the helperFunction()-method if you like
      */
     public List<String> uppercasifyThirdCharacterOnAllStrings(List<String> strings) {
-        return null;
+        return strings.stream().map(this::helperFunction).collect(toList());
     }
 
     public String helperFunction(String s) {
@@ -99,14 +99,14 @@ public class IntroProblems {
      * Return a list where all strings longer than 5 characters are removed
      */
     public List<String> removeLongStrings(List<String> strings) {
-        return null;
+        return strings.stream().filter(s -> s.length() < 6).collect(toList());
     }
 
     /*
      * Return a sublist from a list where all elements satisfy a provided Predicate
      */
     public List<Double> customExcludeFromList(List<Double> nums, Predicate<Double> predicate) {
-        return null;
+        return nums.stream().filter(predicate).collect(toList());
     }
 
     /*
@@ -114,7 +114,7 @@ public class IntroProblems {
      * (that is, the negated predicate is TRUE)
      */
     public <T> List<T> keepAllWhereNot(List<T> theThings, Predicate<T> thePredicate) {
-        return null;
+        return theThings.stream().filter(thePredicate.negate()).collect(toList());
     }
 
     /*
@@ -122,14 +122,14 @@ public class IntroProblems {
      * Convert an IntStream to a Stream<Integer>
      */
     public Stream<Integer> convert(IntStream stream) {
-        return null;
+        return stream.boxed();
     }
 
     /*
      * Convert a Stream<Integer> to IntStream, containing values twice as high as the original int in the steram
      */
     public IntStream convertAndDoubleValue(Stream<Integer> integerStream) {
-        return null;
+        return integerStream.mapToInt(i -> i * 2);
     }
 
 }
