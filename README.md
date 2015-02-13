@@ -1,7 +1,7 @@
 FINN.no Java 8 Workshop 2015
 ============================
 
-Medvirkende
+Credits
 - Christopher Kolstad
 - Espen Amble Kolstad
 - Eirik Meland
@@ -9,17 +9,17 @@ Medvirkende
 - Sjur Millidahl
 - Stig Kleppe-Jørgensen
 
-Presentasjon
+Presentation
 ============
 
 - Ligger i present
-- cd present && python -m SimpleHTTPServer
+- cd present && grunt serve
+- (or .. cd present && python -m SimpleHTTPServer)
 - http://localhost:8000
 
 
-Oppgaver
-========
+Assignments
+===========
 
-- Ligger i src/main/java
-- Få testene grønne
-- Anbefalt rekkefølge er Introproblems, NeophyteProblems, OptionalProblems, EitherProblems
+- src in src/main/java
+- Make the tests go green
