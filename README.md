@@ -1,7 +1,7 @@
 FINN.no Java 8 Workshop 2015
 ============================
 
-Credits
+## Credits
 - Christopher Kolstad
 - Espen Amble Kolstad
 - Eirik Meland
@@ -9,17 +9,13 @@ Credits
 - Sjur Millidahl
 - Stig Kleppe-Jørgensen
 
-Presentation
-============
-
+## Presentation
 - Ligger i present
 - cd present && grunt serve
 - (or .. cd present && python -m SimpleHTTPServer)
 - http://localhost:8000
 
 
-Assignments
-===========
-
+## Assignments
 - src in src/main/java
 - Make the tests go green
