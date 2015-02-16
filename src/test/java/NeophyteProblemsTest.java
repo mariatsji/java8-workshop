@@ -11,8 +11,6 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import no.finntech.lambdacompanion.Pair;
-
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -81,14 +79,6 @@ public class NeophyteProblemsTest {
     public void should_create_map_of_thousand_ints_to_its_successor_int() {
         Map<Integer, Integer> infiniteMap = neophyteProblems.createMapOfNaturalNumbersToItsSuccessor();
         assertThat(infiniteMap.get(999), is(1000));
-    }
-
-    @Test
-    public void should_create_infinite_stream_of_ints_of_pair() {
-        List<Pair> pairs =
-                neophyteProblems.createInfiniteStreamOfPairsForOfAllNaturalNumbersToItsSuccessor()
-                        .limit(2000).collect(toList());
-        assertThat(pairs.get(pairs.size() - 1).getRight(), is(pairs.size()));
     }
 
     @Test
