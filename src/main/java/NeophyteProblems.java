@@ -5,8 +5,6 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import no.finntech.lambdacompanion.Pair;
-
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
@@ -86,19 +84,6 @@ public class NeophyteProblems {
      */
     public Map<Integer, Integer> createMapOfNaturalNumbersToItsSuccessor() {
         return IntStream.iterate(0, i -> i + 1).boxed().limit(1000).collect(toMap(Function.identity(), i -> i + 1));
-    }
-
-    /*
-     * Create an infinite, lazy stream of Pair<Integer,Integer>
-     * A Pair holds a left and right value where left is all natural number and right is left + 1
-     * The Stream will look like this:
-     * << Pair(0,1) Pair(1,2) .. Pair (n, n+1) >>
-     * You cannot collect, or use any terminal operations on the stream, as this will break laziness
-     * (the method would not return in finite time)
-     * Instead you can use IntStream.iterate() and map, because map is lazy
-     */
-    public Stream<Pair> createInfiniteStreamOfPairsForOfAllNaturalNumbersToItsSuccessor() {
-        return IntStream.iterate(0, i -> i + 1).boxed().map(i -> new Pair<>(i, i + 1));
     }
 
     /*
