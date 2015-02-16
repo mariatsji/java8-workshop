@@ -10,7 +10,7 @@ FINN.no Java 8 Workshop 2015
 - Stig Kleppe-Jørgensen
 
 ## Presentation
-- Ligger i present
+- in /present
 - cd present && grunt serve
 - (or .. cd present && python -m SimpleHTTPServer)
 - http://localhost:8000
