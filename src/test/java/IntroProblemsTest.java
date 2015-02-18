@@ -61,9 +61,9 @@ public class IntroProblemsTest {
 
     @Test
     public void should_create_stream_of_file_from_stream_of_path() {
-        Stream<File> fileStream = introProblems.fileFromPath(Arrays.asList("/asdf.txt", "/home/crocodile").stream());
-        List<File> files = fileStream.collect(toList());
-        assertThat(files.get(1).getPath(), is("/home/crocodile"));
+        Stream<File> fileStream = introProblems.fileFromPath(Arrays.asList(File.separator + "asdf.txt", File.separator + "home" + File.separator + "crocodile").stream());
+        List < File > files = fileStream.collect(toList());
+        assertThat(files.get(1).getPath(), is(File.separator +"home" + File.separator +"crocodile"));
 
     }
 
