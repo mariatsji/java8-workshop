@@ -1,13 +1,10 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toMap;
-import static java.util.stream.Collectors.toSet;
 
 public class NeophyteProblems {
 
@@ -15,7 +12,7 @@ public class NeophyteProblems {
      * In a stream of ints, find all the prime numbers, and return the sum of them
      */
     public Integer sumAllPrimeNumbers(Stream<Integer> ints) {
-        return ints.mapToInt(i -> i).filter(this::isPrime).sum();
+        return 0;
     }
 
     /*
@@ -49,14 +46,14 @@ public class NeophyteProblems {
      * join all strings (concatenate)
      */
     public String concatenateAll(Stream<String> stringStream) {
-        return stringStream.collect(joining(""));
+        return "";
     }
 
     /*
      * convert stream<Double> to Set<Double>
      */
     public Set<Double> collectDoubles(Stream<Double> doubles) {
-        return doubles.collect(toSet());
+        return Collections.emptySet();
     }
 
     /*
@@ -65,14 +62,14 @@ public class NeophyteProblems {
      * {1,2,3} should be transformed to the map {1 -> 1, 2 -> 4, 3 -> 9}
      */
     public Map<Integer, Integer> createMapFromIntegerToItsSquare(Stream<Integer> ints) {
-        return ints.collect(toMap(Function.identity(), i -> i * i));
+        return Collections.emptyMap();
     }
 
     /*
      * Create an IntStream of only the number 1, with a limit of 10 (length 10)
      */
     public IntStream createAnIntStreamOfLengh10() {
-        return IntStream.generate(() -> 1).limit(10);
+        return IntStream.empty();
     }
 
     /*
@@ -83,14 +80,14 @@ public class NeophyteProblems {
      * Hint : the boxed()-method creates a Stream<Integer> from an IntStream (handy if you want to use the Collectors.toMap() utility)
      */
     public Map<Integer, Integer> createMapOfNaturalNumbersToItsSuccessor() {
-        return IntStream.iterate(0, i -> i + 1).boxed().limit(1000).collect(toMap(Function.identity(), i -> i + 1));
+        return Collections.emptyMap();
     }
 
     /*
      * Use the reduce method to find the sum of a list
      */
     public Integer sumListByReduction(Stream<Integer> integerStream) {
-        return integerStream.reduce(0, (acc, current) -> acc + current);
+        return 0;
     }
 
     /**
@@ -99,7 +96,7 @@ public class NeophyteProblems {
      * The new value should be the String concatenated with itself
      */
     public String doubleStringThatkeyOnePointsTo(Map<Integer, String> map) {
-        return map.compute(1, (k, v) -> v + v);
+        return "";
     }
 
     /*
@@ -108,9 +105,6 @@ public class NeophyteProblems {
      */
     public <T, S> Iterable<S> map(Iterable<T> list, Function<T, S> function) {
         ArrayList<S> retVal = new ArrayList<>();
-        for (T element : list) {
-            retVal.add(function.apply(element));
-        }
         return retVal;
     }
 
